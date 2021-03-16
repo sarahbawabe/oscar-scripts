@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J nn1
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=8G
+
+#SBATCH -t 20:00
+#SBATCH -o nneigh-%j.out
+#SBATCH -e nneigh-%j.out
+
+python3 -u build-nneigh-graph.py

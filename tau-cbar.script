@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J tau
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=8G
+
+#SBATCH -t 40:00
+#SBATCH -o tau-%j.out
+#SBATCH -e tau-%j.out
+
+python3 -u tau-cbar.py

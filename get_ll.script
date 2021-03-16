@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J ll
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=8G
+
+#SBATCH -t 5:00
+#SBATCH -o ll-%j.out
+#SBATCH -e ll-%j.out
+
+python3 -u get_ll.py

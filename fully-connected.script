@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J fc1
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=8G
+
+#SBATCH -t 30:00
+#SBATCH -o fc-%j.out
+#SBATCH -e fc-%j.out
+
+python3 -u fully-connected.py

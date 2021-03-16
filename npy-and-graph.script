@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J npy2
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=8G
+
+#SBATCH -t 20:00
+#SBATCH -o npy-and-graph-%j.out
+#SBATCH -e npy-and-graph-%j.out
+
+python3 -u build-npy-and-graph.py
