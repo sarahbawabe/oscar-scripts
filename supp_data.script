@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J sup1
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=12G
+
+#SBATCH -t 1:00:00
+#SBATCH -o supp-%j.out
+#SBATCH -e supp-%j.out
+
+python3 -u supplement_data.py
