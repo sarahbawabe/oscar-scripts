@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J cbr1
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=50G
+
+#SBATCH -t 2:00:00
+#SBATCH -o cbar1-%j.out
+#SBATCH -e cbar1-%j.out
+
+python3 -u cbar.py

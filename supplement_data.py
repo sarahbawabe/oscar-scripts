@@ -4,13 +4,14 @@ import glob
 import matplotlib.pyplot as plt
 import re
 
-LOWER_BOUND = 26
+LOWER_BOUND = 16
+UPPER_BOUND = 26
 z = 'z1'
 z_num = 1
 
 graph_file_list = glob.glob(str(z)+'/*.gexf')
 num_files = len(graph_file_list)
-i = 0
+print(num_files, "files read")
 
 ll = []
 alpha = []
@@ -22,14 +23,13 @@ max_clique_num = []
 c_bar = []
 
 for file in graph_file_list:
-    i += 1
-    print(i, '/', num_files)
 
     ## extract linking len from file name
     linking_len = re.findall('\d*\.?\d+',file)
     ll_round = round(float(linking_len[1]),2)
 
-    if ll_round >= LOWER_BOUND: # if above bound
+    if ll_round >= LOWER_BOUND and ll_round < UPPER_BOUND: # if in bounds
+        print(ll_round, "is IN BOUNDS")
         ll.append(ll_round)
         G = nx.read_gexf(file)
 
@@ -65,6 +65,15 @@ for file in graph_file_list:
         clustering = nx.algorithms.cluster.average_clustering(G)
         c_bar.append(clustering)
 
+np.save(str(z)+'/backup/radii_'+ str(z),ll)
+np.save(str(z)+'/backup/alpha_' + str(z),alpha)
+np.save(str(z)+'/backup/s1_'+ str(z),s1)
+np.save(str(z)+'/backup/s2_'+ str(z),s2)
+np.save(str(z)+'/backup/tran_'+ str(z),tau)
+np.save(str(z)+'/backup/clique_number_'+ str(z),clique_num)
+np.save(str(z)+'/backup/max_clique_num_'+ str(z),max_clique_num)
+np.save(str(z)+'/backup/c_bar_'+ str(z),c_bar)
+
 ## load in old files
 alpha_old = np.load(str(z)+'/graph_prop/alpha_'+str(z_num)+'.npy')
 c_bar_old = np.load(str(z)+'/graph_prop/c_bar-'+str(z)+'.npy')
@@ -80,12 +89,12 @@ list_new = [alpha, c_bar, clique_num, max_clique_num, s1, s2, tau]
 names = ['alpha', 'c_bar', 'clique_number', 'max_clique_num', 's1', 's2', 'tau']
 
 ## combine w old files & save
-for i in range(len(list)):
-    pairs = np.transpose(np.array([list_old[i].append(list_new[i]), ll_old.append(ll)]))
+for i in range(len(list_old)):
+    pairs = np.transpose(np.array([np.concatenate([list_old[i],list_new[i]]), np.concatenate([ll_old,ll])]))
     sorted = pairs[pairs[:,0].argsort()]
     np.save(str(z)+'/graph_prop/sorted/'+names[i]+'-'+str(z_num)+'.npy', sorted[:,0])
 
-np.save(str(z)+'/graph_prop/sorted/radii-'+str(z_num)+'.npy', sorted[:,1])
+# np.save(str(z)+'/graph_prop/sorted/radii-'+str(z_num)+'.npy', sorted[:,1])
 
 # np.save('graph_prop/alpha_' + str(z),alpha)
 # np.save('graph_prop/s1_'+ str(z),S1)

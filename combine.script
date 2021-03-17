@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J com1
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=10G
+
+#SBATCH -t 2:00:00
+#SBATCH -o combine1-%j.out
+#SBATCH -e combine1-%j.out
+
+python3 -u combine_data.py

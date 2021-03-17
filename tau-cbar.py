@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 import re
 
 z = 'z3'
+z_num = 3
 graph_file_list = glob.glob(str(z)+'/*.gexf')
 
-tau = []
 c_bar = []
 ll = []
 
