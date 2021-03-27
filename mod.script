@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#SBATCH -J mod3
+
+# Request 1 CPU core
+#SBATCH -n 1
+
+#SBATCH --mem=8G
+
+#SBATCH -t 1:00:00
+#SBATCH -o mod3-%j.out
+#SBATCH -e mod3-%j.out
+
+python3 -u modularity.py
